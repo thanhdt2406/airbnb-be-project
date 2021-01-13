@@ -1,5 +1,7 @@
 package com.codegym.airbnb.service;
 
+import com.codegym.airbnb.model.UserPrinciple;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -8,7 +10,7 @@ import java.util.Date;
 
 @Component
 @Slf4j
-public class JwtTokenProvider {
+public class JwtService {
     // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
     private final String JWT_SECRET = "Wonderland";
 
@@ -17,11 +19,12 @@ public class JwtTokenProvider {
 
     // Tạo ra jwt từ thông tin user
     public String generateToken(Authentication authentication) {
+        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION*1000);
+        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION * 1000);
         // Tạo chuỗi json web token từ id của user.
         return Jwts.builder()
-                .setSubject(Long.toString(userDetails.getUser().getId()))
+                .setSubject(userPrinciple.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
@@ -29,13 +32,12 @@ public class JwtTokenProvider {
     }
 
     // Lấy thông tin user từ jwt
-    public Long getUserIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
+    public String getUsernameFromJWT(String token) {
+        String username = Jwts.parser()
                 .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
-                .getBody();
-
-        return Long.parseLong(claims.getSubject());
+                .getBody().getSubject();
+        return username;
     }
 
     public boolean validateToken(String authToken) {
