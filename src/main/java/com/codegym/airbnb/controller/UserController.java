@@ -20,4 +20,6 @@ public class UserController {
     public ResponseEntity<User> getUserByID(@PathVariable("id") Long id){
         return new  ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
     }
+
+
 }
