@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/users")
@@ -27,6 +29,27 @@ public class UserController {
     public ResponseEntity<User> createNewUser(@RequestBody User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUserInformation(@PathVariable Long id, @RequestBody User user) {
+        Optional<User> productOptional = userService.findById(id);
+        return productOptional.map(product1 -> {
+            user.setId(product1.getId());
+            if (user.getName().equalsIgnoreCase("")) {
+                user.setName(product1.getName());
+            }
+            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        Optional<User> productOptional = userService.findById(id);
+        return productOptional.map(product -> {
+            userService.delete(id);
+            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
