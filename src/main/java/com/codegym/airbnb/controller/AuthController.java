@@ -18,13 +18,18 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtService jwtService;
+
+    @GetMapping
+    public ResponseEntity<String> home(){
+        return new ResponseEntity<>("hello",HttpStatus.OK);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
@@ -49,6 +54,6 @@ public class AuthController {
 
     @GetMapping("/hello")
     public ResponseEntity<String> hello(){
-        return new ResponseEntity<>("Hello", HttpStatus.OK);
+        return new ResponseEntity<>("Hello2", HttpStatus.OK);
     }
 }

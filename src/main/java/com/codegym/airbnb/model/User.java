@@ -29,4 +29,9 @@ public class User {
     private String address;
 
     private String email;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

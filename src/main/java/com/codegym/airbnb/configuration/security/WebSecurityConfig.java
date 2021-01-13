@@ -42,16 +42,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .cors() // Ngăn chặn request từ một domain khác
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/api","/api/login","/users").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
+//                .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
+//
+//        // Thêm một lớp Filter kiểm tra jwt
+//        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors() // Ngăn chặn request từ một domain khác
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/login").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
-                .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
-
-        // Thêm một lớp Filter kiểm tra jwt
+        http.csrf().ignoringAntMatchers("/**");
+        http.authorizeRequests()
+                .antMatchers("/", "/login").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.cors();
     }
 }
