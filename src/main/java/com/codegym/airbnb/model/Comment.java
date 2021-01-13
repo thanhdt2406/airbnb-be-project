@@ -11,16 +11,15 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Rating {
+public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private double star;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long ID;
 
     private String content;
 
     @ManyToOne
     private User user;
-
+    @ManyToOne
+    private Apartment apartment;
 }
