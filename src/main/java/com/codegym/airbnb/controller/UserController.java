@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -22,6 +22,27 @@ public class UserController {
         Optional<User> productOptional = userService.findById(id);
         return productOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUserInformation(@PathVariable Long id, @RequestBody User user) {
+        Optional<User> productOptional = userService.findById(id);
+        return productOptional.map(product1 -> {
+            user.setId(product1.getId());
+            if (user.getName().equalsIgnoreCase("")) {
+                user.setName(product1.getName());
+            }
+            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        Optional<User> productOptional = userService.findById(id);
+        return productOptional.map(product -> {
+            userService.delete(id);
+            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
