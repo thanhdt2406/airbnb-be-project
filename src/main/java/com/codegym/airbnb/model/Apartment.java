@@ -35,6 +35,16 @@ public class Apartment {
 
     private Date createDate;
 
+    private boolean vipRoom;
+
+    private boolean luxuryRoom;
+
+    private boolean singleRoom;
+
+    private boolean coupleRoom;
+
+    private boolean presidentRoom;
+
     @ManyToOne
     private User user;
 
