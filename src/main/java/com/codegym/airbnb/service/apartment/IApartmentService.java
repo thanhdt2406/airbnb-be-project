@@ -5,4 +5,5 @@ import com.codegym.airbnb.service.IGeneralService;
 
 public interface IApartmentService extends IGeneralService<Apartment> {
     public void stopSelling(Long id);
+    Iterable<Apartment> findSevenApartment();
 }
