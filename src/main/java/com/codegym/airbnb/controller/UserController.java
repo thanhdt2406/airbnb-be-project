@@ -16,7 +16,6 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private IUserService userService;
-
     @Autowired
     private PasswordEncoder encoder;
 
