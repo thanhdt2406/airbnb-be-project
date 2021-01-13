@@ -2,7 +2,6 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.JwtResponse;
 import com.codegym.airbnb.model.User;
-import com.codegym.airbnb.model.UserPrinciple;
 import com.codegym.airbnb.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -27,8 +25,8 @@ public class AuthController {
     private JwtService jwtService;
 
     @GetMapping
-    public ResponseEntity<String> home(){
-        return new ResponseEntity<>("hello",HttpStatus.OK);
+    public ResponseEntity<String> home() {
+        return new ResponseEntity<>("hello", HttpStatus.OK);
     }
 
     @PostMapping("/login")
@@ -53,7 +51,7 @@ public class AuthController {
     }
 
     @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
+    public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello2", HttpStatus.OK);
     }
 }

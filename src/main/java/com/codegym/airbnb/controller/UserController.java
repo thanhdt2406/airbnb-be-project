@@ -19,8 +19,8 @@ public class UserController {
     private PasswordEncoder encoder;
 
     @GetMapping("/edit/{id}")
-    public ResponseEntity<User> getUserByID(@PathVariable("id") Long id){
-        return new  ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
+    public ResponseEntity<User> getUserByID(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
     }
 
     @PostMapping
