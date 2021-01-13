@@ -43,4 +43,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         }
         return new UserPrinciple(user);
     }
+
+    @Override
+    public boolean editUser(User user) {
+        userRepository.save(user);
+        return false;
+    }
 }

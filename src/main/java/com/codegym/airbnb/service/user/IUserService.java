@@ -4,5 +4,5 @@ import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.IGeneralService;
 
 public interface IUserService extends IGeneralService<User> {
-
+    boolean editUser(User user);
 }
