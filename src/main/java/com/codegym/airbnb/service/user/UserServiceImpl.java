@@ -3,7 +3,7 @@ package com.codegym.airbnb.service.user;
 import com.codegym.airbnb.model.User;
 
 import com.codegym.airbnb.model.UserPrinciple;
-import com.codegym.airbnb.repository.UserRepository;
+import com.codegym.airbnb.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,20 +15,20 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements IUserService{
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository IUserRepository;
     @Override
     public Iterable<User> findAll() {
-        return userRepository.findAll();
+        return IUserRepository.findAll();
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        return IUserRepository.findById(id);
     }
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+        return IUserRepository.save(user);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = IUserRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -52,6 +52,6 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return IUserRepository.findByUsername(username);
     }
 }
