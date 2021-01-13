@@ -20,4 +20,10 @@ public class Rent {
     private Date startDate;
 
     private Date endDate;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Apartment apartment;
 }
