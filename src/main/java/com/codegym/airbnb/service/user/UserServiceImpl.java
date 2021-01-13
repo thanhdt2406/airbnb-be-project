@@ -43,4 +43,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         }
         return new UserPrinciple(user);
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
