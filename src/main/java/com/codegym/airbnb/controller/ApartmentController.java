@@ -66,6 +66,24 @@ public class ApartmentController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PatchMapping("/repair/{id}")
+    public ResponseEntity<Apartment> repairApartment(@PathVariable Long id) {
+        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
+        return apartmentOptional.map(product -> {
+            iApartmentService.repairSelling(id);
+            return new ResponseEntity<Apartment>(HttpStatus.NO_CONTENT);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PatchMapping("/rentagain/{id}")
+    public ResponseEntity<Apartment> rentAgain(@PathVariable Long id) {
+        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
+        return apartmentOptional.map(product -> {
+            iApartmentService.rentAgainApartment(id);
+            return new ResponseEntity<Apartment>(HttpStatus.NO_CONTENT);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Apartment>> getApartmentByUser(@PathVariable Long id) {
         User user = iUserService.findById(id).get();
