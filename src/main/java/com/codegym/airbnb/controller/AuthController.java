@@ -12,8 +12,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -25,9 +27,6 @@ public class AuthController {
 
     @Autowired
     private JwtService jwtService;
-
-    @Autowired
-    private PasswordEncoder encoder;
 
     @Autowired
     private IUserService userService;
@@ -59,8 +58,10 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> createNewUser(@RequestBody User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+    public ResponseEntity<User> createNewUser(@Valid @RequestBody User user, BindingResult bindingResult) {
+        if(!bindingResult.hasFieldErrors()){
+            return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+        }
+        return null;
     }
 }

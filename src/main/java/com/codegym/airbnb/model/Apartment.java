@@ -1,9 +1,12 @@
 package com.codegym.airbnb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -16,9 +19,8 @@ public class Apartment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
-
-    private String avatar;
 
     private String address;
 
@@ -26,12 +28,16 @@ public class Apartment {
 
     private int bathroom;
 
+    @Column(columnDefinition = "longtext")
     private String description;
 
     private int value;
 
+    @Min(0)
+    @Max(4)
     private int status;
 
+    @UpdateTimestamp
     private Date createDate;
 
     private boolean vipRoom;

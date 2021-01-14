@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class District {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

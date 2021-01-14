@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
@@ -16,6 +18,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
 
+    @NotNull
+    @Size(max = 1000)
     private String content;
 
     @ManyToOne

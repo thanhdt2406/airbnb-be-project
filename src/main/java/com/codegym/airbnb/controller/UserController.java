@@ -5,8 +5,10 @@ import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -42,20 +44,12 @@ public class UserController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-//    @GetMapping("current-user")
-//    public ResponseEntity<User> getCurrentUser() {
-//        return new ResponseEntity<>(userService.findByUsername(getPrincipal()), HttpStatus.OK);
-//    }
-//
-//    private String getPrincipal() {
-//        String userName = null;
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        if (principal instanceof UserDetails) {
-//            userName = ((UserDetails) principal).getUsername();
-//        } else {
-//            userName = principal.toString();
-//        }
-//        return userName;
-//    }
+    @PutMapping("/passwords")
+    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult, String password) {
+        if (!bindingResult.hasFieldErrors() && password.length() >= 6) {
+            return new ResponseEntity<>(userService.changePassword(user.getId(), password), HttpStatus.OK);
+        }
+        return null;
+    }
+
 }
