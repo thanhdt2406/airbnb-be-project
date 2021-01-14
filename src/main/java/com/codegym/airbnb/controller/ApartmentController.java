@@ -1,7 +1,9 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Apartment;
+import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.apartment.IApartmentService;
+import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class ApartmentController {
     @Autowired
     private IApartmentService iApartmentService;
+
+    @Autowired
+    private IUserService iUserService;
 
     @GetMapping
     public ResponseEntity<Iterable<Apartment>> getAll() {
@@ -52,12 +57,18 @@ public class ApartmentController {
         return new ResponseEntity<>(iApartmentService.save(apartment), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Apartment> deleteApartment(@PathVariable Long id) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<Apartment> stopApartment(@PathVariable Long id) {
         Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
         return apartmentOptional.map(product -> {
             iApartmentService.stopSelling(id);
             return new ResponseEntity<Apartment>(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Iterable<Apartment>> getApartmentByUser(@PathVariable Long id) {
+        User user = iUserService.findById(id).get();
+        return new ResponseEntity<>(iApartmentService.findAllByUser(user), HttpStatus.OK);
     }
 }

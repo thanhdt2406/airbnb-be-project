@@ -1,6 +1,7 @@
 package com.codegym.airbnb.service.apartment;
 
 import com.codegym.airbnb.model.Apartment;
+import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.repository.IApartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,13 +31,20 @@ public class ApartmentService implements IApartmentService{
         iApartmentRepository.deleteById(id);
     }
 
+    @Override
     public void stopSelling(Long id) {
         Apartment apartmentById = iApartmentRepository.findById(id).get();
-        apartmentById.setStatus(4);
+        apartmentById.setStatus(3);
+        iApartmentRepository.save(apartmentById);
     }
 
     @Override
     public Iterable<Apartment> findSevenApartment() {
         return iApartmentRepository.findSevenApartment();
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByUser(User user) {
+        return iApartmentRepository.findAllByUser(user);
     }
 }
