@@ -34,4 +34,10 @@ public class ApartmentService implements IApartmentService{
         Apartment apartmentById = iApartmentRepository.findById(id).get();
         apartmentById.setStatus(4);
     }
+
+    @Override
+    public Iterable<Apartment> findSevenApartment() {
+        return iApartmentRepository.findSevenApartment();
+    }
+
 }
