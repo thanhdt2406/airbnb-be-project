@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/district")
+@RequestMapping("/districts")
 public class DistrictController {
     @Autowired
     private DistrictService districtService;

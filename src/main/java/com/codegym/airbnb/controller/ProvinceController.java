@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/province")
+@RequestMapping("/provinces")
 public class ProvinceController {
     @Autowired
     private ProvinceService provinceService;
