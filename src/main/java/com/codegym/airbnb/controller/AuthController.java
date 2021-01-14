@@ -55,7 +55,8 @@ public class AuthController {
         // Trả về jwt cho người dùng.
         String jwt = jwtService.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername()));
+        User currentUser = userService.findByUsername(userDetails.getUsername());
+        return ResponseEntity.ok(new JwtResponse(currentUser.getId(),currentUser.getUsername(), currentUser.getPassword(),jwt, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
     }
 
     @PostMapping("/register")
