@@ -1,14 +1,14 @@
 package com.codegym.airbnb.service.image;
 
-import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Image;
-import com.codegym.airbnb.repository.IApartmentRepository;
 import com.codegym.airbnb.repository.IImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-public class ImageService implements IImageService {
+@Service
+public class ImageServiceImpl implements IImageService {
     @Autowired
     private IImageRepository iImageRepository;
 
