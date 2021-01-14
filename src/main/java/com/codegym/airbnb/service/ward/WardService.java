@@ -1,5 +1,6 @@
 package com.codegym.airbnb.service.ward;
 
+import com.codegym.airbnb.model.District;
 import com.codegym.airbnb.model.Ward;
 import com.codegym.airbnb.repository.IWardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,10 @@ public class WardService implements IWardService {
     @Override
     public void delete(Long id) {
         wardRepo.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Ward> findAllByDistrict(District district) {
+        return wardRepo.findAllByDistrict(district);
     }
 }
