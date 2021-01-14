@@ -22,8 +22,6 @@ public class Apartment {
     @NotNull
     private String name;
 
-    private String avatar;
-
     private String address;
 
     private int bedroom;
