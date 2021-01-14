@@ -23,10 +23,11 @@ public class User {
     private String username;
 
     @NotNull
-    @Size(min = 6, max = 20)
+    @Size(min = 6)
+    @Column(columnDefinition = "longtext")
     private String password;
 
-    @Column(columnDefinition = "varchar(255) default = 'Anonymous")
+    @Column(columnDefinition = "nvarchar(255) default 'Anonymous'")
     private String name;
 
     private String avatar;
