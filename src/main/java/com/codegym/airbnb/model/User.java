@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
@@ -16,10 +18,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(min = 6, max = 20)
     private String username;
 
+    @NotNull
+    @Size(min = 6, max = 20)
     private String password;
 
+    @Column(columnDefinition = "varchar(255) default = 'Anonymous")
     private String name;
 
     private String avatar;
