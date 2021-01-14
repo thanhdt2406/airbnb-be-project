@@ -39,5 +39,4 @@ public class ApartmentService implements IApartmentService{
     public Iterable<Apartment> findSevenApartment() {
         return iApartmentRepository.findSevenApartment();
     }
-
 }
