@@ -17,10 +17,18 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private PasswordEncoder encoder;
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserByID(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createNewUser(@RequestBody User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

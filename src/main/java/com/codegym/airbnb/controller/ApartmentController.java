@@ -21,6 +21,11 @@ public class ApartmentController {
         return new ResponseEntity<>(iApartmentService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/seven")
+    public ResponseEntity<Iterable<Apartment>> findSevenApartment() {
+        return new ResponseEntity<>(iApartmentService.findSevenApartment(), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {
         return new ResponseEntity<>(iApartmentService.save(apartment), HttpStatus.CREATED);
