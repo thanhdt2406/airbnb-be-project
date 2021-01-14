@@ -30,9 +30,6 @@ public class AuthController {
     private JwtService jwtService;
 
     @Autowired
-    private PasswordEncoder encoder;
-
-    @Autowired
     private IUserService userService;
 
     @GetMapping
@@ -65,7 +62,6 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<User> createNewUser(@Valid @RequestBody User user, BindingResult bindingResult) {
         if(!bindingResult.hasFieldErrors()){
-            user.setPassword(encoder.encode(user.getPassword()));
             return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
         }
         return null;

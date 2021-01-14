@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements IUserService{
+    @Autowired
+    private PasswordEncoder encoder;
+
     @Autowired
     private IUserRepository IUserRepository;
     @Override
@@ -28,6 +32,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public User save(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         return IUserRepository.save(user);
     }
 
@@ -44,14 +49,15 @@ public class UserServiceImpl implements IUserService{
         return new UserPrinciple(user);
     }
 
-//    @Override
-//    public boolean editUser(User user) {
-//        userRepository.save(user);
-//        return false;
-//    }
-
     @Override
     public User findByUsername(String username) {
         return IUserRepository.findByUsername(username);
+    }
+
+    @Override
+    public User changePassword(Long id, String password) {
+        User user = findById(id).get();
+        user.setPassword(encoder.encode(password));
+        return save(user);
     }
 }

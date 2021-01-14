@@ -49,10 +49,9 @@ public class UserController {
     }
 
     @PutMapping("/passwords")
-    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult){
-        if(!bindingResult.hasFieldErrors()){
-            user.setPassword(encoder.encode(user.getPassword()));
-            return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult, String password) {
+        if (!bindingResult.hasFieldErrors() && password.length() >= 6) {
+            return new ResponseEntity<>(userService.changePassword(user.getId(), password), HttpStatus.OK);
         }
         return null;
     }
