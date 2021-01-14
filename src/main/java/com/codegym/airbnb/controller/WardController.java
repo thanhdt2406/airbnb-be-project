@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/ward")
+@RequestMapping("/wards")
 public class WardController {
     @Autowired
     private WardService wardService;
