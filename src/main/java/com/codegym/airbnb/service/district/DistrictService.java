@@ -1,6 +1,7 @@
 package com.codegym.airbnb.service.district;
 
 import com.codegym.airbnb.model.District;
+import com.codegym.airbnb.model.Province;
 import com.codegym.airbnb.repository.IDistrictRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class DistrictService implements IDistrictService{
     @Override
     public void delete(Long id) {
         districtRepo.deleteById(id);
+    }
+
+    @Override
+    public Iterable<District> findAllByProvince(Province province) {
+        return districtRepo.findAllByProvince(province);
     }
 }
