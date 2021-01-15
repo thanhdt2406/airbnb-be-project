@@ -31,4 +31,9 @@ public class CommantService implements ICommentService{
     public void delete(Long id) {
         commandRepo.deleteById(id);
     }
+
+    @Override
+    public Iterable<Comment> findByApartmentID(Long id) {
+        return commandRepo.findAllByApartment_Id(id);
+    }
 }
