@@ -10,55 +10,56 @@ import java.util.Optional;
 @Service
 public class ApartmentService implements IApartmentService{
     @Autowired
-    private IApartmentRepository iApartmentRepository;
+    private IApartmentRepository apartmentRepository;
+
     @Override
     public Iterable<Apartment> findAll() {
-        return iApartmentRepository.findAll();
+        return apartmentRepository.findAll();
     }
 
     @Override
     public Apartment save(Apartment apartment) {
-        return iApartmentRepository.save(apartment);
+        return apartmentRepository.save(apartment);
     }
 
     @Override
     public Optional<Apartment> findById(Long id) {
-        return iApartmentRepository.findById(id);
+        return apartmentRepository.findById(id);
     }
 
     @Override
     public void delete(Long id) {
-        iApartmentRepository.deleteById(id);
+        apartmentRepository.deleteById(id);
     }
 
     @Override
     public void stopSelling(Long id) {
-        Apartment apartmentById = iApartmentRepository.findById(id).get();
+        Apartment apartmentById = apartmentRepository.findById(id).get();
         apartmentById.setStatus(3);
-        iApartmentRepository.save(apartmentById);
+        apartmentRepository.save(apartmentById);
     }
 
     @Override
     public void repairSelling(Long id) {
-        Apartment apartmentById = iApartmentRepository.findById(id).get();
+        Apartment apartmentById = apartmentRepository.findById(id).get();
         apartmentById.setStatus(2);
-        iApartmentRepository.save(apartmentById);
+        apartmentRepository.save(apartmentById);
     }
 
     @Override
     public void rentAgainApartment(Long id) {
-        Apartment apartmentById = iApartmentRepository.findById(id).get();
+        Apartment apartmentById = apartmentRepository.findById(id).get();
         apartmentById.setStatus(0);
-        iApartmentRepository.save(apartmentById);
+        apartmentRepository.save(apartmentById);
     }
 
     @Override
     public Iterable<Apartment> findSevenApartment() {
-        return iApartmentRepository.findSevenApartment();
+        return apartmentRepository.findSevenApartment();
     }
 
     @Override
     public Iterable<Apartment> findAllByUser(User user) {
-        return iApartmentRepository.findAllByUser(user);
+        return apartmentRepository.findAllByUser(user);
     }
 }
