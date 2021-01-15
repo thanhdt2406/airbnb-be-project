@@ -40,15 +40,15 @@ public class Apartment {
     @UpdateTimestamp
     private Date createDate;
 
-    private boolean vipRoom;
+    private int vipRoom;
 
-    private boolean luxuryRoom;
+    private int luxuryRoom;
 
-    private boolean singleRoom;
+    private int singleRoom;
 
-    private boolean coupleRoom;
+    private int coupleRoom;
 
-    private boolean presidentRoom;
+    private int presidentRoom;
 
     @ManyToOne
     private User user;
