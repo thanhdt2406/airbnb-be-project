@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IRatingRepo extends CrudRepository<Rating, Long> {
+public interface IRatingRepository extends CrudRepository<Rating, Long> {
 }

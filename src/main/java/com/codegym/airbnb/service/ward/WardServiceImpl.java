@@ -2,15 +2,15 @@ package com.codegym.airbnb.service.ward;
 
 import com.codegym.airbnb.model.District;
 import com.codegym.airbnb.model.Ward;
-import com.codegym.airbnb.repository.IWardRepo;
+import com.codegym.airbnb.repository.IWardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class WardService implements IWardService {
+public class WardServiceImpl implements IWardService {
    @Autowired
-   private IWardRepo wardRepo;
+   private IWardRepository wardRepo;
     @Override
     public Iterable<Ward> findAll() {
         return wardRepo.findAll();

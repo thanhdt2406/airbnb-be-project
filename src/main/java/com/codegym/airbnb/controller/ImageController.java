@@ -2,7 +2,7 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Image;
-import com.codegym.airbnb.service.apartment.ApartmentService;
+import com.codegym.airbnb.service.apartment.ApartmentServiceImpl;
 import com.codegym.airbnb.service.image.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class ImageController {
     private IImageService imageService;
 
     @Autowired
-    private ApartmentService apartmentService;
+    private ApartmentServiceImpl apartmentServiceImpl;
 
     @GetMapping
     public ResponseEntity<Iterable<Image>> getAll() {
@@ -58,7 +58,7 @@ public class ImageController {
 
     @GetMapping("/apartment/{id}")
     public ResponseEntity<Iterable<Image>> getAllByApartment(@PathVariable Long id) {
-        Apartment apartment = apartmentService.findById(id).get();
+        Apartment apartment = apartmentServiceImpl.findById(id).get();
         return new ResponseEntity<>(imageService.getAllByApartment(apartment), HttpStatus.OK);
     };
 }

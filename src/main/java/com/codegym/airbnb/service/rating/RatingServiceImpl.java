@@ -1,16 +1,16 @@
 package com.codegym.airbnb.service.rating;
 
 import com.codegym.airbnb.model.Rating;
-import com.codegym.airbnb.repository.IRatingRepo;
+import com.codegym.airbnb.repository.IRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class RatingService implements IRatingService {
+public class RatingServiceImpl implements IRatingService {
     @Autowired
-    private IRatingRepo ratingRepo;
+    private IRatingRepository ratingRepo;
 
     @Override
     public Iterable<Rating> findAll() {
