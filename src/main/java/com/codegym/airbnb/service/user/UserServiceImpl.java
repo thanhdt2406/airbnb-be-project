@@ -6,6 +6,7 @@ import com.codegym.airbnb.model.UserPrinciple;
 import com.codegym.airbnb.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,5 +60,11 @@ public class UserServiceImpl implements IUserService{
         User user = findById(id).get();
         user.setPassword(encoder.encode(password));
         return save(user);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return findByUsername(userDetails.getUsername());
     }
 }
