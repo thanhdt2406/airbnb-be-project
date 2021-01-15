@@ -1,7 +1,9 @@
 package com.codegym.airbnb.repository;
 
 import com.codegym.airbnb.model.Rating;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IRatingRepo extends JpaRepository<Rating, Long> {
+@Repository
+public interface IRatingRepo extends CrudRepository<Rating, Long> {
 }

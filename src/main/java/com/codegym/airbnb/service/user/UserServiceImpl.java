@@ -15,12 +15,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements IUserService {
     @Autowired
     private PasswordEncoder encoder;
 
     @Autowired
     private IUserRepository IUserRepository;
+
     @Override
     public Iterable<User> findAll() {
         return IUserRepository.findAll();
@@ -59,6 +60,9 @@ public class UserServiceImpl implements IUserService{
     public User changePassword(Long id, String password) {
         User user = findById(id).get();
         user.setPassword(encoder.encode(password));
+        if (!user.getPassword().equals(getCurrentUser().getPassword())) {
+            return null;
+        }
         return save(user);
     }
 
