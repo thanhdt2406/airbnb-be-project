@@ -8,4 +8,6 @@ public interface IUserService extends IGeneralService<User>, UserDetailsService 
     User findByUsername(String username);
 
     User changePassword(Long id, String password);
+
+    User getCurrentUser();
 }
