@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class ApartmentService implements IApartmentService{
+public class ApartmentServiceImpl implements IApartmentService{
     @Autowired
     private IApartmentRepository apartmentRepository;
 

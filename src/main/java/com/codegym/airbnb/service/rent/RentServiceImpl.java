@@ -3,22 +3,21 @@ package com.codegym.airbnb.service.rent;
 import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Rent;
 import com.codegym.airbnb.model.User;
-import com.codegym.airbnb.repository.IRentRepo;
-import com.codegym.airbnb.service.apartment.ApartmentService;
+import com.codegym.airbnb.repository.IRentRepository;
+import com.codegym.airbnb.service.apartment.ApartmentServiceImpl;
 import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class RentService implements IRentService {
+public class RentServiceImpl implements IRentService {
     @Autowired
-    private IRentRepo rentRepo;
+    private IRentRepository rentRepo;
     @Autowired
-    private ApartmentService apartmentService;
+    private ApartmentServiceImpl apartmentServiceImpl;
     @Autowired
     private IUserService userService;
 
@@ -44,7 +43,7 @@ public class RentService implements IRentService {
 
     @Override
     public Rent saveByApartmentID(Long id,Date startDate, Date endDate) {
-        Apartment apartment = apartmentService.findById(id).get();
+        Apartment apartment = apartmentServiceImpl.findById(id).get();
         apartment.setStatus(2);
         User currentUser = userService.getCurrentUser();
         Rent rent = new Rent(currentUser,apartment,startDate,endDate);
