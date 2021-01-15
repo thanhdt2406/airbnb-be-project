@@ -16,29 +16,29 @@ import java.util.Optional;
 @RequestMapping("/apartments")
 public class ApartmentController {
     @Autowired
-    private IApartmentService iApartmentService;
+    private IApartmentService apartmentService;
 
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
 
     @GetMapping
     public ResponseEntity<Iterable<Apartment>> getAll() {
-        return new ResponseEntity<>(iApartmentService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(apartmentService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/seven")
     public ResponseEntity<Iterable<Apartment>> findSevenApartment() {
-        return new ResponseEntity<>(iApartmentService.findSevenApartment(), HttpStatus.OK);
+        return new ResponseEntity<>(apartmentService.findSevenApartment(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {
-        return new ResponseEntity<>(iApartmentService.save(apartment), HttpStatus.CREATED);
+        return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Apartment> getApartmentById(@PathVariable Long id) {
-        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
+        Optional<Apartment> apartmentOptional = apartmentService.findById(id);
         return apartmentOptional.map(product -> new ResponseEntity<>(product, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -53,40 +53,40 @@ public class ApartmentController {
 //    }
 
     @PutMapping("/edit")
-    public ResponseEntity<Apartment> updateApartment( @RequestBody Apartment apartment) {
-        return new ResponseEntity<>(iApartmentService.save(apartment), HttpStatus.OK);
+    public ResponseEntity<Apartment> updateApartment(@RequestBody Apartment apartment) {
+        return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Apartment> stopApartment(@PathVariable Long id) {
-        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
+        Optional<Apartment> apartmentOptional = apartmentService.findById(id);
         return apartmentOptional.map(product -> {
-            iApartmentService.stopSelling(id);
+            apartmentService.stopSelling(id);
             return new ResponseEntity<Apartment>(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PatchMapping("/repair/{id}")
     public ResponseEntity<Apartment> repairApartment(@PathVariable Long id) {
-        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
+        Optional<Apartment> apartmentOptional = apartmentService.findById(id);
         return apartmentOptional.map(product -> {
-            iApartmentService.repairSelling(id);
+            apartmentService.repairSelling(id);
             return new ResponseEntity<Apartment>(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PatchMapping("/rentagain/{id}")
     public ResponseEntity<Apartment> rentAgain(@PathVariable Long id) {
-        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
+        Optional<Apartment> apartmentOptional = apartmentService.findById(id);
         return apartmentOptional.map(product -> {
-            iApartmentService.rentAgainApartment(id);
+            apartmentService.rentAgainApartment(id);
             return new ResponseEntity<Apartment>(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Apartment>> getApartmentByUser(@PathVariable Long id) {
-        User user = iUserService.findById(id).get();
-        return new ResponseEntity<>(iApartmentService.findAllByUser(user), HttpStatus.OK);
+        User user = userService.findById(id).get();
+        return new ResponseEntity<>(apartmentService.findAllByUser(user), HttpStatus.OK);
     }
 }
