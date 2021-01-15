@@ -1,5 +1,6 @@
 package com.codegym.airbnb.service.image;
 
+import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Image;
 import com.codegym.airbnb.repository.IImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ImageServiceImpl implements IImageService {
     @Override
     public void delete(Long id) {
         iImageRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Image> getAllByApartment(Apartment apartment) {
+        return iImageRepository.getAllByApartment(apartment);
     }
 }

@@ -29,4 +29,11 @@ public class Rent {
 
     @ManyToOne
     private Apartment apartment;
+
+    public Rent(User user, Apartment apartment,Date startDate, Date endDate){
+        this.user = user;
+        this.apartment = apartment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }
