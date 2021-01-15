@@ -1,9 +1,12 @@
 package com.codegym.airbnb.controller;
 
+import com.codegym.airbnb.model.GooglePojo;
 import com.codegym.airbnb.model.JwtResponse;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.JwtService;
+import com.codegym.airbnb.service.user.GoogleUtils;
 import com.codegym.airbnb.service.user.IUserService;
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +15,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @RestController
@@ -31,10 +37,13 @@ public class AuthController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private GoogleUtils googleUtils;
     @GetMapping
     public ResponseEntity<String> home() {
         return new ResponseEntity<>("hello", HttpStatus.OK);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
@@ -57,6 +66,27 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(),currentUser.getUsername(), currentUser.getPassword(),jwt, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
     }
 
+    @RequestMapping("/login-google")
+    public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
+        String code = request.getParameter("code");
+        if (code == null || code.isEmpty()) {
+            return "redirect:/login?google=error";
+        }
+        String accessToken = googleUtils.getToken(code);
+
+        GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
+        UserDetails userDetail = googleUtils.buildUser(googlePojo);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+                userDetail.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtService.generateToken(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User currentUser = userService.findByUsername(userDetails.getUsername());
+        System.out.println(currentUser);
+        return "redirect:/http://localhost:4200/";
+    }
     @PostMapping("/register")
     public ResponseEntity<User> createNewUser(@Valid @RequestBody User user, BindingResult bindingResult) {
         if(!bindingResult.hasFieldErrors()){
