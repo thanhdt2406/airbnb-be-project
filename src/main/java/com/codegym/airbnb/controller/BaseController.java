@@ -19,10 +19,7 @@
 //
 //    @Autowired
 //    private GoogleUtils googleUtils;
-//    @RequestMapping(value = { "/", "/login" })
-//    public String login() {
-//        return "login";
-//    }
+//
 //    @RequestMapping("/login-google")
 //    public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
 //        String code = request.getParameter("code");
@@ -40,17 +37,5 @@
 //
 //
 //        return "redirect:/http://localhost:4200/";
-//    }
-//    @RequestMapping("/user")
-//    public String user() {
-//        return "user";
-//    }
-//    @RequestMapping("/admin")
-//    public String admin() {
-//        return "admin";
-//    }
-//    @RequestMapping("/403")
-//    public String accessDenied() {
-//        return "403";
 //    }
 //}
