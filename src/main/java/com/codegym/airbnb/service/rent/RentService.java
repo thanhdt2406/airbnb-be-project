@@ -43,11 +43,11 @@ public class RentService implements IRentService {
     }
 
     @Override
-    public Rent saveByApartmentID(Long id, Date endDate) {
+    public Rent saveByApartmentID(Long id,Date startDate, Date endDate) {
         Apartment apartment = apartmentService.findById(id).get();
         apartment.setStatus(2);
         User currentUser = userService.getCurrentUser();
-        Rent rent = new Rent(currentUser,apartment,endDate);
+        Rent rent = new Rent(currentUser,apartment,startDate,endDate);
         return rentRepo.save(rent);
     }
 

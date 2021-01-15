@@ -21,8 +21,8 @@ public class RentController {
 
 
     @PostMapping("/{apartmentID}")
-    public ResponseEntity<Rent> rentByApartmentID(@PathVariable Long apartmentID, @RequestBody Date endDate){
-        return new ResponseEntity<>(rentService.saveByApartmentID(apartmentID,endDate), HttpStatus.CREATED);
+    public ResponseEntity<Rent> rentByApartmentID(@PathVariable Long apartmentID,@RequestBody Date startDate ,@RequestBody Date endDate){
+        return new ResponseEntity<>(rentService.saveByApartmentID(apartmentID,startDate,endDate), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
