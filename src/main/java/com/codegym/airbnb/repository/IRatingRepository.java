@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IRatingRepository extends CrudRepository<Rating, Long> {
+    Iterable<Rating> findByApartment_Id(Long id);
 }

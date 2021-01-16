@@ -30,12 +30,14 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUserInformation(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> productOptional = userService.findById(id);
-        return productOptional.map(product1 -> {
-            user.setId(product1.getId());
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(data -> {
+            user.setId(data.getId());
             if (user.getName().equalsIgnoreCase("")) {
-                user.setName(product1.getName());
+                user.setName(data.getName());
             }
+            user.setPassword(data.getPassword());
+            user.setUsername(data.getUsername());
             return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
