@@ -38,7 +38,7 @@ public class UserController {
             }
             user.setPassword(data.getPassword());
             user.setUsername(data.getUsername());
-            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.edit(user), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
