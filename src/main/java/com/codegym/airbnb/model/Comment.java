@@ -24,6 +24,7 @@ public class Comment {
 
     @ManyToOne
     private User user;
+
     @ManyToOne
     private Apartment apartment;
 }

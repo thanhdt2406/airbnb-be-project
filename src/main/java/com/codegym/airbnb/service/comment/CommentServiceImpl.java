@@ -1,7 +1,7 @@
 package com.codegym.airbnb.service.comment;
 
 import com.codegym.airbnb.model.Comment;
-import com.codegym.airbnb.repository.ICommandRepository;
+import com.codegym.airbnb.repository.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements ICommentService{
     @Autowired
-    private ICommandRepository commandRepo;
+    private ICommentRepository commandRepo;
 
     @Override
     public Iterable<Comment> findAll() {

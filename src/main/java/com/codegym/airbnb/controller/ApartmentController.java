@@ -89,4 +89,9 @@ public class ApartmentController {
         User user = userService.findById(id).get();
         return new ResponseEntity<>(apartmentService.findAllByUser(user), HttpStatus.OK);
     }
+
+    @GetMapping("/rents")
+    public ResponseEntity<Iterable<Apartment>> getAllRentApartment(){
+        return new ResponseEntity<>(apartmentService.findAllByApartment_Id(userService.getCurrentUser().getId()),HttpStatus.OK);
+    }
 }

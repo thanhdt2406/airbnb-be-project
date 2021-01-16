@@ -26,8 +26,8 @@ public class RentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Iterable<Rent>> findAllByApartmentID(@PathVariable Long apartmentID){
-        return new ResponseEntity<>(rentService.findAllByApartmentID(apartmentID),HttpStatus.OK);
+    public ResponseEntity<Iterable<Rent>> findAllByApartmentID(@PathVariable Long id){
+        return new ResponseEntity<>(rentService.findAllByApartmentID(id),HttpStatus.OK);
     }
 
 }

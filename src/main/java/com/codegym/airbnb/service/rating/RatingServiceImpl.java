@@ -2,6 +2,7 @@ package com.codegym.airbnb.service.rating;
 
 import com.codegym.airbnb.model.Rating;
 import com.codegym.airbnb.repository.IRatingRepository;
+import com.codegym.airbnb.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -22,13 +22,4 @@ public class CommentController {
         return new ResponseEntity<>(commentService.findByApartmentID(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Comment> deleteComment(@PathVariable Long id){
-        Optional<Comment> productOptional = commentService.findById(id);
-        return productOptional.map(product -> {
-            commentService.delete(id);
-            return new ResponseEntity<Comment>(HttpStatus.NO_CONTENT);
-        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
 }
