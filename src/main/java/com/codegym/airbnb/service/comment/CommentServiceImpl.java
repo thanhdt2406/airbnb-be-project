@@ -10,30 +10,30 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements ICommentService{
     @Autowired
-    private ICommentRepository commandRepo;
+    private ICommentRepository commentRepository;
 
     @Override
     public Iterable<Comment> findAll() {
-        return commandRepo.findAll();
+        return commentRepository.findAll();
     }
 
     @Override
     public Optional<Comment> findById(Long id) {
-        return commandRepo.findById(id);
+        return commentRepository.findById(id);
     }
 
     @Override
     public Comment save(Comment comment) {
-        return commandRepo.save(comment);
+        return commentRepository.save(comment);
     }
 
     @Override
     public void delete(Long id) {
-        commandRepo.deleteById(id);
+        commentRepository.deleteById(id);
     }
 
     @Override
     public Iterable<Comment> findByApartmentID(Long id) {
-        return commandRepo.findAllByApartment_Id(id);
+        return commentRepository.findAllByApartment_Id(id);
     }
 }

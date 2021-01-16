@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
 
     @NotNull
     @Size(max = 1000)

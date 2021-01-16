@@ -1,7 +1,6 @@
 package com.codegym.airbnb.service.apartment;
 
 import com.codegym.airbnb.model.Apartment;
-import com.codegym.airbnb.model.Rent;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.repository.IApartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
