@@ -16,9 +16,13 @@ public class CommentController {
     @Autowired
     private ICommentService commentService;
 
-    @GetMapping("apartment/{id}")
+    @GetMapping("/apartments/{id}")
     public ResponseEntity<Iterable<Comment>> getAllByApartmentID(@PathVariable Long id ){
         return new ResponseEntity<>(commentService.findByApartmentID(id), HttpStatus.OK);
     }
 
+    @PostMapping ("/apartments")
+    public ResponseEntity<Comment> getAllByApartmentID(@RequestBody Comment comment){
+        return new ResponseEntity<>(commentService.save(comment), HttpStatus.CREATED);
+    }
 }
