@@ -1,7 +1,7 @@
 package com.codegym.airbnb.service.apartment;
 
 import com.codegym.airbnb.model.Apartment;
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.AppUser;
 import com.codegym.airbnb.service.IGeneralService;
 
 public interface IApartmentService extends IGeneralService<Apartment> {
@@ -9,5 +9,5 @@ public interface IApartmentService extends IGeneralService<Apartment> {
     void repairSelling(Long id);
     void rentAgainApartment(Long id);
     Iterable<Apartment> findSevenApartment();
-    Iterable<Apartment> findAllByUser(User user);
+    Iterable<Apartment> findAllByUser(AppUser appUser);
 }

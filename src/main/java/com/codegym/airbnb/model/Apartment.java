@@ -51,7 +51,7 @@ public class Apartment {
     private int presidentRoom;
 
     @ManyToOne
-    private User user;
+    private AppUser appUser;
 
     @ManyToOne
     private Ward ward;

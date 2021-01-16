@@ -2,7 +2,7 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.GooglePojo;
 import com.codegym.airbnb.model.JwtResponse;
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.AppUser;
 import com.codegym.airbnb.service.JwtService;
 import com.codegym.airbnb.service.user.GoogleUtils;
 import com.codegym.airbnb.service.user.IUserService;
@@ -47,13 +47,13 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody User user) {
+    public ResponseEntity<?> authenticateUser(@RequestBody AppUser appUser) {
 
         // Xác thực thông tin người dùng Request lên
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        user.getUsername(),
-                        user.getPassword()
+                        appUser.getUsername(),
+                        appUser.getPassword()
                 )
         );
         // Nếu không xảy ra exception tức là thông tin hợp lệ
@@ -62,11 +62,12 @@ public class AuthController {
         // Trả về jwt cho người dùng.
         String jwt = jwtService.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User currentUser = userService.findByUsername(userDetails.getUsername());
-        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), jwt, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
+
+        AppUser currentAppUser = userService.findByUsername(userDetails.getUsername());
+        return ResponseEntity.ok(new JwtResponse(currentAppUser.getId(), currentAppUser.getUsername(), currentAppUser.getPassword(), jwt, currentAppUser.getName(), currentAppUser.getAvatar(), currentAppUser.getPhoneNumber(), currentAppUser.getAddress(), currentAppUser.getEmail()));
     }
 
-    @PostMapping("/login-google")
+    @GetMapping("/login-google")
     public ResponseEntity<?> loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
         String code = request.getParameter("code");
         if (code == null || code.isEmpty()) {
@@ -77,21 +78,21 @@ public class AuthController {
         GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
         UserDetails userDetail = googleUtils.buildUser(googlePojo);
 
-        User currentUser = userService.findByUsername(userDetail.getUsername());
-        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
+//        User currentUser = userService.findByUsername(userDetail.getUsername());
+//        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
 
-//        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
-//                null, userDetail.getAuthorities());
-//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        return new ResponseEntity<>(googlePojo, HttpStatus.OK);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
+                null, userDetail.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return new ResponseEntity<>(googlePojo, HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> createNewUser(@Valid @RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<AppUser> createNewUser(@Valid @RequestBody AppUser appUser, BindingResult bindingResult) {
         if (!bindingResult.hasFieldErrors()) {
-            return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.save(appUser), HttpStatus.CREATED);
         }
         return null;
     }

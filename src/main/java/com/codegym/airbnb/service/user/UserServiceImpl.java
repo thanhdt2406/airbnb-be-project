@@ -1,6 +1,6 @@
 package com.codegym.airbnb.service.user;
 
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.AppUser;
 
 import com.codegym.airbnb.model.UserPrinciple;
 import com.codegym.airbnb.repository.IUserRepository;
@@ -20,22 +20,22 @@ public class UserServiceImpl implements IUserService {
     private PasswordEncoder encoder;
 
     @Autowired
-    private IUserRepository IUserRepository;
+    private IUserRepository userRepository;
 
     @Override
-    public Iterable<User> findAll() {
-        return IUserRepository.findAll();
+    public Iterable<AppUser> findAll() {
+        return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return IUserRepository.findById(id);
+    public Optional<AppUser> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public User save(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        return IUserRepository.save(user);
+    public AppUser save(AppUser appUser) {
+        appUser.setPassword(encoder.encode(appUser.getPassword()));
+        return userRepository.save(appUser);
     }
 
     @Override
@@ -44,30 +44,35 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = IUserRepository.findByUsername(username);
-        if (user == null) {
+        AppUser appUser = userRepository.findByUsername(username);
+        if (appUser == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new UserPrinciple(user);
+        return new UserPrinciple(appUser);
     }
 
     @Override
-    public User findByUsername(String username) {
-        return IUserRepository.findByUsername(username);
+    public AppUser findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
-    public User changePassword(Long id, String password) {
-        User user = findById(id).get();
-        user.setPassword(encoder.encode(password));
-        if (!user.getPassword().equals(getCurrentUser().getPassword())) {
+    public AppUser findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public AppUser changePassword(Long id, String password) {
+        AppUser appUser = findById(id).get();
+        appUser.setPassword(encoder.encode(password));
+        if (!appUser.getPassword().equals(getCurrentUser().getPassword())) {
             return null;
         }
-        return save(user);
+        return save(appUser);
     }
 
     @Override
-    public User getCurrentUser() {
+    public AppUser getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return findByUsername(userDetails.getUsername());
     }

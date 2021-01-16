@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codegym.airbnb.model.GooglePojo;
+import com.codegym.airbnb.model.AppUser;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -21,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GoogleUtils {
     @Autowired
     private Environment env;
+    @Autowired
+    private IUserService userService;
 
     public String getToken(final String code) throws  IOException {
         String link = env.getProperty("google.link.get.token");
@@ -42,6 +45,10 @@ public class GoogleUtils {
         GooglePojo googlePojo = mapper.readValue(response, GooglePojo.class);
         System.out.println(googlePojo);
         return googlePojo;
+    }
+
+    public AppUser getCurrentUserFormGoogle(GooglePojo googlePojo){
+        return userService.findByEmail(googlePojo.getEmail());
     }
 
     public UserDetails buildUser(GooglePojo googlePojo) {

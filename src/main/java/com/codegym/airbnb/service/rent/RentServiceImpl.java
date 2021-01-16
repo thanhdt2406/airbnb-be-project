@@ -2,7 +2,7 @@ package com.codegym.airbnb.service.rent;
 
 import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Rent;
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.AppUser;
 import com.codegym.airbnb.repository.IRentRepository;
 import com.codegym.airbnb.service.apartment.ApartmentServiceImpl;
 import com.codegym.airbnb.service.user.IUserService;
@@ -45,8 +45,8 @@ public class RentServiceImpl implements IRentService {
     public Rent saveByApartmentID(Long id,Date startDate, Date endDate) {
         Apartment apartment = apartmentServiceImpl.findById(id).get();
         apartment.setStatus(2);
-        User currentUser = userService.getCurrentUser();
-        Rent rent = new Rent(currentUser,apartment,startDate,endDate);
+        AppUser currentAppUser = userService.getCurrentUser();
+        Rent rent = new Rent(currentAppUser,apartment,startDate,endDate);
         return rentRepo.save(rent);
     }
 

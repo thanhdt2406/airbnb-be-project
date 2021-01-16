@@ -1,13 +1,15 @@
 package com.codegym.airbnb.service.user;
 
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.AppUser;
 import com.codegym.airbnb.service.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface IUserService extends IGeneralService<User>, UserDetailsService {
-    User findByUsername(String username);
+public interface IUserService extends IGeneralService<AppUser>, UserDetailsService {
+    AppUser findByUsername(String username);
 
-    User changePassword(Long id, String password);
+    AppUser findByEmail(String emial);
 
-    User getCurrentUser();
+    AppUser changePassword(Long id, String password);
+
+    AppUser getCurrentUser();
 }

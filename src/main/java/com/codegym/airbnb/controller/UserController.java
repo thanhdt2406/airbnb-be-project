@@ -1,6 +1,6 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.AppUser;
 import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,40 +19,40 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping
-    public ResponseEntity<Iterable<User>> getAllUser() {
+    public ResponseEntity<Iterable<AppUser>> getAllUser() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserByID(@PathVariable("id") Long id) {
+    public ResponseEntity<AppUser> getUserByID(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUserInformation(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> productOptional = userService.findById(id);
+    public ResponseEntity<AppUser> updateUserInformation(@PathVariable Long id, @RequestBody AppUser appUser) {
+        Optional<AppUser> productOptional = userService.findById(id);
         return productOptional.map(product1 -> {
-            user.setId(product1.getId());
-            if (user.getName().equalsIgnoreCase("")) {
-                user.setName(product1.getName());
+            appUser.setId(product1.getId());
+            if (appUser.getName().equalsIgnoreCase("")) {
+                appUser.setName(product1.getName());
             }
-            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        Optional<User> productOptional = userService.findById(id);
+    public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
+        Optional<AppUser> productOptional = userService.findById(id);
         return productOptional.map(product -> {
             userService.delete(id);
-            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<AppUser>(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/passwords")
-    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<AppUser> changePassword(@Valid @RequestBody AppUser appUser, BindingResult bindingResult) {
         if (!bindingResult.hasFieldErrors()) {
-            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.save(appUser), HttpStatus.OK);
         }
         return null;
     }
