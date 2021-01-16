@@ -1,7 +1,6 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Comment;
-import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.comment.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

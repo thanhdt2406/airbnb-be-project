@@ -20,22 +20,27 @@ public class UserServiceImpl implements IUserService {
     private PasswordEncoder encoder;
 
     @Autowired
-    private IUserRepository IUserRepository;
+    private IUserRepository userRepository;
 
     @Override
     public Iterable<User> findAll() {
-        return IUserRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return IUserRepository.findById(id);
+        return userRepository.findById(id);
     }
 
     @Override
     public User save(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        return IUserRepository.save(user);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User saveSocialUser(User user){
+        return userRepository.save(user);
     }
 
     @Override
@@ -44,7 +49,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = IUserRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -53,7 +58,18 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User findByUsername(String username) {
-        return IUserRepository.findByUsername(username);
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findByEmail(String email){
+        if (userRepository.findByEmail(email) != null){
+            return userRepository.findByEmail(email);
+        }else {
+            User newUser = new User(email);
+            saveSocialUser(newUser);
+            return newUser;
+        }
     }
 
     @Override

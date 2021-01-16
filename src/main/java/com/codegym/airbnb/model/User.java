@@ -42,4 +42,10 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(String email){
+        this.email = email;
+        this.username = email;
+        this.password = "123456";
+    }
 }

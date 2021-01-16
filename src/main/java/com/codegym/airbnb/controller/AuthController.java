@@ -62,11 +62,12 @@ public class AuthController {
         // Trả về jwt cho người dùng.
         String jwt = jwtService.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
         User currentUser = userService.findByUsername(userDetails.getUsername());
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), jwt, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
     }
 
-    @PostMapping("/login-google")
+    @GetMapping("/login-google")
     public ResponseEntity<?> loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
         String code = request.getParameter("code");
         if (code == null || code.isEmpty()) {
@@ -77,15 +78,18 @@ public class AuthController {
         GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
         UserDetails userDetail = googleUtils.buildUser(googlePojo);
 
-        User currentUser = userService.findByUsername(userDetail.getUsername());
-        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
+//        User currentUser = userService.findByUsername(userDetail.getUsername());
+//        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
 
-//        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
-//                null, userDetail.getAuthorities());
-//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        return new ResponseEntity<>(googlePojo, HttpStatus.OK);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
+                null, userDetail.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User currentUser = userService.findByEmail(googlePojo.getEmail());
+        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
+
+        // return new ResponseEntity<>(googlePojo, HttpStatus.OK);
     }
 
     @PostMapping("/register")
