@@ -25,13 +25,13 @@ public class Rent {
     private Date endDate;
 
     @ManyToOne
-    private AppUser appUser;
+    private User user;
 
     @ManyToOne
     private Apartment apartment;
 
-    public Rent(AppUser appUser, Apartment apartment, Date startDate, Date endDate){
-        this.appUser = appUser;
+    public Rent(User user, Apartment apartment, Date startDate, Date endDate){
+        this.user = user;
         this.apartment = apartment;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -25,7 +25,7 @@ public class Rating {
     private String content;
 
     @ManyToOne
-    private AppUser appUser;
+    private User user;
 
     @ManyToOne
     private Apartment apartment;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codegym.airbnb.model.GooglePojo;
-import com.codegym.airbnb.model.AppUser;
+import com.codegym.airbnb.model.User;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -47,9 +46,9 @@ public class GoogleUtils {
         return googlePojo;
     }
 
-    public AppUser getCurrentUserFormGoogle(GooglePojo googlePojo){
-        return userService.findByEmail(googlePojo.getEmail());
-    }
+//    public User getCurrentUserFormGoogle(GooglePojo googlePojo){
+//        return userService.findByEmail(googlePojo.getEmail());
+//    }
 
     public UserDetails buildUser(GooglePojo googlePojo) {
         boolean enabled = true;
@@ -58,7 +57,7 @@ public class GoogleUtils {
         boolean accountNonLocked = true;
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        UserDetails userDetail = new User(googlePojo.getEmail(),
+        UserDetails userDetail = new org.springframework.security.core.userdetails.User(googlePojo.getEmail(),
                 "", enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         return userDetail;
     }

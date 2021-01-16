@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppUser {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,8 +38,14 @@ public class AppUser {
 
     private String email;
 
-    public AppUser(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String email){
+        this.email = email;
+        this.username = email;
+        this.password = "123456";
     }
 }

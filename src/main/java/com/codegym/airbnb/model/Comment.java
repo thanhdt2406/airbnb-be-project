@@ -23,7 +23,7 @@ public class Comment {
     private String content;
 
     @ManyToOne
-    private AppUser appUser;
+    private User user;
     @ManyToOne
     private Apartment apartment;
 }

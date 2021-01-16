@@ -1,7 +1,7 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Apartment;
-import com.codegym.airbnb.model.AppUser;
+import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.apartment.IApartmentService;
 import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +86,7 @@ public class ApartmentController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Apartment>> getApartmentByUser(@PathVariable Long id) {
-        AppUser appUser = userService.findById(id).get();
-        return new ResponseEntity<>(apartmentService.findAllByUser(appUser), HttpStatus.OK);
+        User user = userService.findById(id).get();
+        return new ResponseEntity<>(apartmentService.findAllByUser(user), HttpStatus.OK);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPrinciple implements UserDetails {
-    private AppUser appUser;
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -21,12 +21,12 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public String getPassword() {
-        return appUser.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return appUser.getUsername();
+        return user.getUsername();
     }
 
     @Override

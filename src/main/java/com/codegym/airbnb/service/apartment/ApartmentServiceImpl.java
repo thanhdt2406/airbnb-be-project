@@ -1,7 +1,7 @@
 package com.codegym.airbnb.service.apartment;
 
 import com.codegym.airbnb.model.Apartment;
-import com.codegym.airbnb.model.AppUser;
+import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.repository.IApartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class ApartmentServiceImpl implements IApartmentService{
     }
 
     @Override
-    public Iterable<Apartment> findAllByUser(AppUser appUser) {
-        return apartmentRepository.findAllByUser(appUser);
+    public Iterable<Apartment> findAllByUser(User user) {
+        return apartmentRepository.findAllByUser(user);
     }
 }
