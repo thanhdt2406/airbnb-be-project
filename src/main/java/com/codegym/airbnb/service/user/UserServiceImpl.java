@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User saveSocialUser(User user){
+    public User saveSocialUser(User user) {
         return userRepository.save(user);
     }
 
@@ -62,10 +62,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findByEmail(String email){
-        if (userRepository.findByEmail(email) != null){
+    public User findByEmail(String email) {
+        if (userRepository.findByEmail(email) != null) {
             return userRepository.findByEmail(email);
-        }else {
+        } else {
             User newUser = new User(email);
             saveSocialUser(newUser);
             return newUser;
@@ -89,6 +89,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     public User edit(User user) {
-        return IUserRepository.save(user);
+        return userRepository.save(user);
     }
 }
