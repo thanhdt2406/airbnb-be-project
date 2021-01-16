@@ -54,7 +54,7 @@ public class UserController {
     @PutMapping("/passwords")
     public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult) {
         if (!bindingResult.hasFieldErrors()) {
-            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.edit(user), HttpStatus.OK);
         }
         return null;
     }

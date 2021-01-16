@@ -10,4 +10,5 @@ public interface IUserService extends IGeneralService<User>, UserDetailsService 
     User changePassword(Long id, String password);
 
     User getCurrentUser();
+    User edit(User user);
 }

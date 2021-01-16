@@ -71,4 +71,8 @@ public class UserServiceImpl implements IUserService {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return findByUsername(userDetails.getUsername());
     }
+
+    public User edit(User user) {
+        return IUserRepository.save(user);
+    }
 }
