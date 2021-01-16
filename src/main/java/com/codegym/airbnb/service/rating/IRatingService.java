@@ -4,4 +4,5 @@ import com.codegym.airbnb.model.Rating;
 import com.codegym.airbnb.service.IGeneralService;
 
 public interface IRatingService extends IGeneralService<Rating> {
+    Iterable<Rating> findByApartment_Id(Long id);
 }
