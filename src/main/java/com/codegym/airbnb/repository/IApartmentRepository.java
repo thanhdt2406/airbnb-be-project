@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
-    @Query(value = "select * from airbnb.apartment limit 7;", nativeQuery = true)
+    @Query(value = "select * from apartment order by id desc limit 7", nativeQuery = true)
     Iterable<Apartment> findSevenApartment();
 
     Iterable<Apartment> findAllByUser(User user);
