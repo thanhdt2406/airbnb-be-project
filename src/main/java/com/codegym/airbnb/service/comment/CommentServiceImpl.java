@@ -34,6 +34,6 @@ public class CommentServiceImpl implements ICommentService{
 
     @Override
     public Iterable<Comment> findByApartmentID(Long id) {
-        return commentRepository.findAllByApartment_Id(id);
+        return commentRepository.findAllByApartment_IdOrderByIdDesc(id);
     }
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ICommentRepository extends JpaRepository<Comment,Long> {
-    Iterable<Comment> findAllByApartment_Id(Long apartmentID);
+    Iterable<Comment> findAllByApartment_IdOrderByIdDesc(Long apartmentID);
 }
