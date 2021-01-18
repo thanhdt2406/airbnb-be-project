@@ -26,6 +26,7 @@ public class GoogleUtils {
 
     public String getToken(final String code) throws  IOException {
         String link = env.getProperty("google.link.get.token");
+        System.out.println("code"+code);
         String response = Request.Post(link)
                 .bodyForm(Form.form().add("client_id", env.getProperty("google.app.id"))
                         .add("client_secret", env.getProperty("google.app.secret"))

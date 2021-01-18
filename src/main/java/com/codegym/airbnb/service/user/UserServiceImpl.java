@@ -67,6 +67,7 @@ public class UserServiceImpl implements IUserService {
             return userRepository.findByEmail(email);
         } else {
             User newUser = new User(email);
+            newUser.setPassword(encoder.encode("123456"));
             saveSocialUser(newUser);
             return newUser;
         }

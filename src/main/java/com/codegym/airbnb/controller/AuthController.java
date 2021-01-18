@@ -66,10 +66,12 @@ public class AuthController {
         User currentUser = userService.findByUsername(userDetails.getUsername());
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), jwt, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), currentUser.getEmail()));
     }
-
+    private String token;
+    private User currentUser;
     @GetMapping("/login-google")
     public ResponseEntity<?> loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
         String code = request.getParameter("code");
+        System.out.println("codecontro: "+code);
         if (code == null || code.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -78,19 +80,45 @@ public class AuthController {
         GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
         UserDetails userDetail = googleUtils.buildUser(googlePojo);
 
-//        User currentUser = userService.findByUsername(userDetail.getUsername());
-//        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
-
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
                 null, userDetail.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User currentUser = userService.findByEmail(googlePojo.getEmail());
-        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(), currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
-
-        // return new ResponseEntity<>(googlePojo, HttpStatus.OK);
+        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), currentUser.getUsername(),
+                currentUser.getPassword(), accessToken, currentUser.getName(), currentUser.getAvatar(),
+                currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
     }
+
+//    @RequestMapping("/login-google1")
+//    public String loginGoogle1(HttpServletRequest request) throws ClientProtocolException, IOException {
+//        String code = request.getParameter("code");
+//
+//        if (code == null || code.isEmpty()) {
+//            return "redirect:/login?google=error";
+//        }
+//        token = googleUtils.getToken(code);
+//
+//        GooglePojo googlePojo = googleUtils.getUserInfo(token);
+//        UserDetails userDetail = googleUtils.buildUser(googlePojo);
+//        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+//                userDetail.getAuthorities());
+//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        currentUser = userService.findByEmail(googlePojo.getEmail());
+//        request.setAttribute("jwtResponse",new JwtResponse(currentUser.getId(), currentUser.getUsername(),
+//                currentUser.getPassword(), token, currentUser.getName(), currentUser.getAvatar(),
+//                currentUser.getPhoneNumber(), currentUser.getAddress(), googlePojo.getEmail()));
+//        return "redirect:/getUser";
+//    }
+//    @RequestMapping("/getUser")
+//    public String user() {
+//        return "http://localhost:4200/";
+//    }
+
+
 
     @PostMapping("/register")
     public ResponseEntity<User> createNewUser(@Valid @RequestBody User user, BindingResult bindingResult) {

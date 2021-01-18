@@ -46,6 +46,5 @@ public class User {
     public User(String email){
         this.email = email;
         this.username = email;
-        this.password = "123456";
     }
 }
