@@ -43,19 +43,19 @@ public class ApartmentController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Apartment> updateApartment(@PathVariable Long id, @RequestBody Apartment apartment) {
-//        Optional<Apartment> apartmentOptional = iApartmentService.findById(id);
-//        return apartmentOptional.map(apartment1 -> {
-//            apartment.setId(apartment1.getId());
-//            return new ResponseEntity<>(iApartmentService.save(apartment), HttpStatus.OK);
-//        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Apartment> updateApartment(@PathVariable Long id, @RequestBody Apartment apartment) {
+        Optional<Apartment> apartmentOptional = apartmentService.findById(id);
+        return apartmentOptional.map(apartment1 -> {
+            apartment.setId(apartment1.getId());
+            return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
-    @PutMapping("/edit")
+    /*@PutMapping("/edit")
     public ResponseEntity<Apartment> updateApartment(@RequestBody Apartment apartment) {
         return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.OK);
-    }
+    }*/
 
     @PatchMapping("/{id}")
     public ResponseEntity<Apartment> stopApartment(@PathVariable Long id) {
