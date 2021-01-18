@@ -54,6 +54,13 @@ public class ApartmentServiceImpl implements IApartmentService{
     }
 
     @Override
+    public void rentingApartment(Long id) {
+        Apartment apartmentById = apartmentRepository.findById(id).get();
+        apartmentById.setStatus(1);
+        apartmentRepository.save(apartmentById);
+    }
+
+    @Override
     public Iterable<Apartment> findSevenApartment() {
         return apartmentRepository.findSevenApartment();
     }
