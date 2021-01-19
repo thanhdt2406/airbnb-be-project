@@ -34,7 +34,7 @@ public class RentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("rents/{userId}")
+    @GetMapping("rented/{userId}")
     public ResponseEntity<Iterable<Rent>> getAllRented(@PathVariable Long userId){
         return new ResponseEntity<>(rentService.getAllRented(userId),HttpStatus.OK);
     }
