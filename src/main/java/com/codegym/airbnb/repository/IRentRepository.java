@@ -17,4 +17,7 @@ public interface IRentRepository extends JpaRepository<Rent, Long> {
     @Modifying
     @Query(value = "delete from rent where apartment_id = ?1 and user_id = ?2 and start_date>now();",nativeQuery = true)
     void cancelBooking(Long apartmentId, Long userId);
+
+    @Query(value = "select * from rent where user_id = ?1 and start_date>now();",nativeQuery = true)
+    Iterable<Rent> getAllBookingApartmentByUser(Long userId);
 }

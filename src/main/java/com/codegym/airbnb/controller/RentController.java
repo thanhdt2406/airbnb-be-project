@@ -32,5 +32,8 @@ public class RentController {
         rentService.cancelBooking(id1,id2);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Iterable<Rent>> findAllBookingApartmentByUserId(@PathVariable Long id) {
+        return new ResponseEntity<>(rentService.getAllBookingApartmentByUser(id),HttpStatus.OK);
+    }
 }

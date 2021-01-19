@@ -60,4 +60,9 @@ public class RentServiceImpl implements IRentService {
         rentRepo.cancelBooking(apartmentId, userId);
     }
 
+    @Override
+    public Iterable<Rent> getAllBookingApartmentByUser(Long userId) {
+        return rentRepo.getAllBookingApartmentByUser(userId);
+    }
+
 }
