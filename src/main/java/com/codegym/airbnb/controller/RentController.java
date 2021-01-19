@@ -27,4 +27,6 @@ public class RentController {
         return new ResponseEntity<>(rentService.findAllByApartmentID(id),HttpStatus.OK);
     }
 
+
+
 }
