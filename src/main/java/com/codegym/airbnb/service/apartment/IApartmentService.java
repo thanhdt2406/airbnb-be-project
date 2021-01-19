@@ -14,6 +14,7 @@ public interface IApartmentService extends IGeneralService<Apartment> {
 
     void rentingApartment(Long id);
 
+
     Iterable<Apartment> findSevenApartment();
 
     Iterable<Apartment> findAllByUser(User user);
