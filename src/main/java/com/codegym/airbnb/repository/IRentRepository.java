@@ -17,7 +17,7 @@ public interface IRentRepository extends JpaRepository<Rent, Long> {
     @Query(value = "delete from rent where apartment_id = ?1 and user_id = ?2 and start_date>now();",nativeQuery = true)
     void cancelBooking(Long apartmentId, Long userId);
 
-    @Query(value = "select * from rent where user_id = ?1 and start_date>now();",nativeQuery = true)
+    @Query(value = "select * from rent where user_id = ?1 and end_date>now();",nativeQuery = true)
     Iterable<Rent> getAllBookingApartmentByUser(Long userId);
 
     @Transactional
@@ -25,5 +25,6 @@ public interface IRentRepository extends JpaRepository<Rent, Long> {
     @Query(value = "select * from rent where user_id = ?1 and end_date<now();", nativeQuery = true)
     Iterable<Rent> getAllRented(Long userId);
 
-
+    @Query(value = "select * from rent where user_id = ?1 and apartment_id = ?2 and end_date>now();",nativeQuery = true)
+    Optional<Rent> getBookingApartmentByUserIdAndApartment(Long userId, Long apartmentId);
 }

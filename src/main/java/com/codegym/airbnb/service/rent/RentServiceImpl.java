@@ -70,4 +70,9 @@ public class RentServiceImpl implements IRentService {
         return rentRepo.getAllRented(userId);
     }
 
+    @Override
+    public Optional<Rent> getBookingApartmentByUserIdAndApartment(Long userId, Long apartmentId) {
+        return rentRepo.getBookingApartmentByUserIdAndApartment(userId,apartmentId);
+    }
+
 }
