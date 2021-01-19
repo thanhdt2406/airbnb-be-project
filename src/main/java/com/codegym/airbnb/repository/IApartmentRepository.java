@@ -15,4 +15,6 @@ public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
 
     @Query(value = "select apartment.* from apartment join rent r on apartment.id = r.apartment_id join user u on r.user_id = u.id and apartment.id = r.apartment_id and r.user_id = ?;",nativeQuery = true)
     Iterable<Apartment> findAllRentApartmentByUserId(Long id);
+
+
 }

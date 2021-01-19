@@ -42,17 +42,22 @@ public class RentServiceImpl implements IRentService {
     }
 
     @Override
-    public Rent saveByApartmentID(Long id,Date startDate, Date endDate) {
+    public Rent saveByApartmentID(Long id, Date startDate, Date endDate) {
         Apartment apartment = apartmentServiceImpl.findById(id).get();
         apartment.setStatus(2);
         User currentUser = userService.getCurrentUser();
-        Rent rent = new Rent(currentUser,apartment,startDate,endDate);
+        Rent rent = new Rent(currentUser, apartment, startDate, endDate);
         return rentRepo.save(rent);
     }
 
     @Override
     public Iterable<Rent> findAllByApartmentID(Long id) {
         return rentRepo.findAllByApartment_Id(id);
+    }
+
+    @Override
+    public void cancelBooking(Long apartmentId, Long userId) {
+        rentRepo.cancelBooking(apartmentId, userId);
     }
 
 }

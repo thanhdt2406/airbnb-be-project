@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -25,6 +26,11 @@ public class RentController {
     @GetMapping("/{id}")
     public ResponseEntity<Iterable<Rent>> findAllByApartmentID(@PathVariable Long id){
         return new ResponseEntity<>(rentService.findAllByApartmentID(id),HttpStatus.OK);
+    }
+    @DeleteMapping("/{id1}/{id2}")
+    public ResponseEntity<Void> cancelBooking(@PathVariable Long id1,@PathVariable Long id2) {
+        rentService.cancelBooking(id1,id2);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
