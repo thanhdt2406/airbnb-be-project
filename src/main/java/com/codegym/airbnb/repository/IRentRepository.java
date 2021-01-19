@@ -22,7 +22,7 @@ public interface IRentRepository extends JpaRepository<Rent, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "delete from rent where user_id = ?1 and end_date<now();", nativeQuery = true)
+    @Query(value = "select * from rent where user_id = ?1 and end_date<now();", nativeQuery = true)
     Iterable<Rent> getAllRented(Long userId);
 
 
