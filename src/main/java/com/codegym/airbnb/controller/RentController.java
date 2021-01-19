@@ -35,6 +35,7 @@ public class RentController {
     }
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Rent>> findAllBookingApartmentByUserId(@PathVariable Long id) {
+        Iterable<Rent> rents = rentService.getAllBookingApartmentByUser(id);
         return new ResponseEntity<>(rentService.getAllBookingApartmentByUser(id),HttpStatus.OK);
     }
 
