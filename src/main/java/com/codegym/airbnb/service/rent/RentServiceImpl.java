@@ -65,4 +65,9 @@ public class RentServiceImpl implements IRentService {
         return rentRepo.getAllBookingApartmentByUser(userId);
     }
 
+    @Override
+    public Iterable<Rent> getAllRented(Long userId) {
+        return rentRepo.getAllRented(userId);
+    }
+
 }

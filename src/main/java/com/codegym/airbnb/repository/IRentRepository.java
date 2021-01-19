@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface IRentRepository extends JpaRepository<Rent, Long> {
     Iterable<Rent> findAllByApartment_Id(Long id);
-
     @Transactional
     @Modifying
     @Query(value = "delete from rent where apartment_id = ?1 and user_id = ?2 and start_date>now();",nativeQuery = true)
@@ -20,4 +19,11 @@ public interface IRentRepository extends JpaRepository<Rent, Long> {
 
     @Query(value = "select * from rent where user_id = ?1 and start_date>now();",nativeQuery = true)
     Iterable<Rent> getAllBookingApartmentByUser(Long userId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from rent where user_id = ?1 and end_date<now();", nativeQuery = true)
+    Iterable<Rent> getAllRented(Long userId);
+
+
 }

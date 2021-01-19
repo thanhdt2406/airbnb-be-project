@@ -24,6 +24,9 @@ public class Rent {
     @NotNull
     private Date endDate;
 
+    @NotNull
+    private Date createDate = new Date();
+
     @ManyToOne
     private User user;
 

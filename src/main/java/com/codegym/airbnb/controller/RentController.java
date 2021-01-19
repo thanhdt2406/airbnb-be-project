@@ -27,6 +27,7 @@ public class RentController {
     public ResponseEntity<Iterable<Rent>> findAllByApartmentID(@PathVariable Long id){
         return new ResponseEntity<>(rentService.findAllByApartmentID(id),HttpStatus.OK);
     }
+
     @DeleteMapping("/{id1}/{id2}")
     public ResponseEntity<Void> cancelBooking(@PathVariable Long id1,@PathVariable Long id2) {
         rentService.cancelBooking(id1,id2);
@@ -35,5 +36,10 @@ public class RentController {
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Rent>> findAllBookingApartmentByUserId(@PathVariable Long id) {
         return new ResponseEntity<>(rentService.getAllBookingApartmentByUser(id),HttpStatus.OK);
+    }
+
+    @GetMapping("rented/{userId}")
+    public ResponseEntity<Iterable<Rent>> getAllRented(@PathVariable Long userId){
+        return new ResponseEntity<>(rentService.getAllRented(userId),HttpStatus.OK);
     }
 }

@@ -14,4 +14,6 @@ public interface IRentService extends IGeneralService<Rent> {
     void cancelBooking(Long apartmentId, Long userId);
 
     Iterable<Rent> getAllBookingApartmentByUser(Long userId);
+
+    Iterable<Rent> getAllRented(Long userId);
 }
