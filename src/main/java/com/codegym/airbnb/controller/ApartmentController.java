@@ -1,6 +1,7 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Apartment;
+import com.codegym.airbnb.model.SearchCondition;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.apartment.IApartmentService;
 import com.codegym.airbnb.service.user.IUserService;
@@ -102,5 +103,10 @@ public class ApartmentController {
     @GetMapping("/rents")
     public ResponseEntity<Iterable<Apartment>> getAllRentApartment(){
         return new ResponseEntity<>(apartmentService.findAllByApartment_Id(userService.getCurrentUser().getId()),HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Apartment>> getApartmentByAllCondition(@RequestBody SearchCondition searchCondition){
+        return new ResponseEntity<>(apartmentService.findApartmentByAllCondition(searchCondition),HttpStatus.OK);
     }
 }
