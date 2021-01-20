@@ -25,9 +25,6 @@ public class RatingController {
 
     @PostMapping("/apartments")
     public ResponseEntity<Rating> addRating(@RequestBody Rating rating) {
-        if (userService.getCurrentUser().getId().equals(rating.getUser().getId())) {
-            return null;
-        }
         return new ResponseEntity<>(ratingService.save(rating), HttpStatus.OK);
     }
 
@@ -35,4 +32,7 @@ public class RatingController {
     public ResponseEntity<Rating> editRating(@RequestBody Rating rating) {
         return new ResponseEntity<>(ratingService.save(rating), HttpStatus.OK);
     }
+
+//    @GetMapping("apartments/{apartmentId}/users/{userId}")
+//    public ResponseEntity<Rating> findByApartment_IdAnd
 }

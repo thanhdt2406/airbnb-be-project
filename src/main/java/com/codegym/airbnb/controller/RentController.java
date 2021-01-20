@@ -1,6 +1,7 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Rent;
+import com.codegym.airbnb.model.TotalIncome;
 import com.codegym.airbnb.service.rent.IRentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,8 @@ public class RentController {
     }
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Rent>> findAllBookingApartmentByUserId(@PathVariable Long id) {
-        return new ResponseEntity<>(rentService.getAllBookingApartmentByUser(id),HttpStatus.OK);
+        Iterable<Rent> rents = rentService.getAllBookingApartmentByUser(id);
+        return new ResponseEntity<>(rents,HttpStatus.OK);
     }
 
     @GetMapping("rented/{userId}")
@@ -46,5 +48,11 @@ public class RentController {
     @GetMapping("/list/{apartmentId}")
     public ResponseEntity<Iterable<Rent>> getAllRentedByApartment(@PathVariable Long apartmentId) {
         return new ResponseEntity<>(rentService.getAllRentedByApartment(apartmentId),HttpStatus.OK);
+    }
+
+    @GetMapping("/money/user/{id}")
+    public ResponseEntity<Iterable<TotalIncome>>getTotalIncomeByUserId(@PathVariable Long id) {
+        Iterable<TotalIncome> totalIncomes = rentService.getTotalIncomeByUserId(id);
+        return new ResponseEntity<>(totalIncomes, HttpStatus.OK);
     }
 }

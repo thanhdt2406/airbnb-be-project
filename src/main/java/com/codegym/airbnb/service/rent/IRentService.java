@@ -1,6 +1,7 @@
 package com.codegym.airbnb.service.rent;
 
 import com.codegym.airbnb.model.Rent;
+import com.codegym.airbnb.model.TotalIncome;
 import com.codegym.airbnb.service.IGeneralService;
 
 import java.util.Date;
@@ -16,6 +17,8 @@ public interface IRentService extends IGeneralService<Rent> {
     Iterable<Rent> getAllBookingApartmentByUser(Long userId);
 
     Iterable<Rent> getAllRented(Long userId);
+
+    Iterable<TotalIncome> getTotalIncomeByUserId(Long id);
 
     Iterable<Rent> getAllRentedByApartment(Long apartment_id);
 
