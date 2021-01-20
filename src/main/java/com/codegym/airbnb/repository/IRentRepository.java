@@ -25,5 +25,9 @@ public interface IRentRepository extends JpaRepository<Rent, Long> {
     @Query(value = "select * from rent where user_id = ?1 and end_date<now();", nativeQuery = true)
     Iterable<Rent> getAllRented(Long userId);
 
+    @Transactional
+    @Modifying
+    @Query(value = "select * from rent where apartment_id = ?1 and end_date>now();", nativeQuery = true)
+    Iterable<Rent> getAllRentedByApartment(Long apartment_id);
 
 }

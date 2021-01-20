@@ -42,4 +42,9 @@ public class RentController {
     public ResponseEntity<Iterable<Rent>> getAllRented(@PathVariable Long userId){
         return new ResponseEntity<>(rentService.getAllRented(userId),HttpStatus.OK);
     }
+
+    @GetMapping("/list/{apartmentId}")
+    public ResponseEntity<Iterable<Rent>> getAllRentedByApartment(@PathVariable Long apartmentId) {
+        return new ResponseEntity<>(rentService.getAllRentedByApartment(apartmentId),HttpStatus.OK);
+    }
 }
