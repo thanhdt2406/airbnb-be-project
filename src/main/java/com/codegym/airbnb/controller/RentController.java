@@ -45,6 +45,11 @@ public class RentController {
         return new ResponseEntity<>(rentService.getAllRented(userId),HttpStatus.OK);
     }
 
+    @GetMapping("/list/{apartmentId}")
+    public ResponseEntity<Iterable<Rent>> getAllRentedByApartment(@PathVariable Long apartmentId) {
+        return new ResponseEntity<>(rentService.getAllRentedByApartment(apartmentId),HttpStatus.OK);
+    }
+
     @GetMapping("/money/user/{id}/years/{year}/months/{month}")
     public ResponseEntity<Long>getTotalIncomeByUserId(@PathVariable Long id,@PathVariable int year,@PathVariable int month) {
         Long totalIncomes = rentService.getTotalIncomeByUserId(id,year,month);

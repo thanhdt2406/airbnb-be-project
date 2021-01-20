@@ -37,4 +37,9 @@ public class RatingServiceImpl implements IRatingService {
     public Iterable<Rating> findByApartment_Id(Long id) {
         return ratingRepository.findByApartment_Id(id);
     }
+
+    @Override
+    public Optional<Rating> findByApartment_IdAndUser_Id(Long apartmentId, Long userId) {
+        return ratingRepository.findByApartment_IdAndUser_Id(apartmentId,userId);
+    }
 }

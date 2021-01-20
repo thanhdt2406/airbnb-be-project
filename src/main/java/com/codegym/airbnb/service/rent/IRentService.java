@@ -19,4 +19,6 @@ public interface IRentService extends IGeneralService<Rent> {
     Iterable<Rent> getAllRented(Long userId);
 
     Long getTotalIncomeByUserId(Long id, int year, int month);
+
+    Iterable<Rent> getAllRentedByApartment(Long apartment_id);
 }
