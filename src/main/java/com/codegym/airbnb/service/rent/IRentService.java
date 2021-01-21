@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface IRentService extends IGeneralService<Rent> {
     Rent saveByApartmentID(Long id,Date startDate, Date endDate);
 
+    //Optional<Rent> findById(Long rentId);
+
     Iterable<Rent> findAllByApartmentID(Long id);
 
     void cancelBooking(Long apartmentId, Long userId);
@@ -16,4 +18,6 @@ public interface IRentService extends IGeneralService<Rent> {
     Iterable<Rent> getAllBookingApartmentByUser(Long userId);
 
     Iterable<Rent> getAllRented(Long userId);
+
+
 }

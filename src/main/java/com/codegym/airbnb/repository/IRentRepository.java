@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Repository
 public interface IRentRepository extends JpaRepository<Rent, Long> {
+    //Optional<Rent> findById(Long id);
+
     Iterable<Rent> findAllByApartment_Id(Long id);
     @Transactional
     @Modifying

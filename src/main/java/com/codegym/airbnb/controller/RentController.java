@@ -17,6 +17,10 @@ public class RentController {
     @Autowired
     private IRentService rentService;
 
+    @GetMapping("/rent/{rentId}")
+    public ResponseEntity<Rent> findByID(@PathVariable Long rentId){
+        return new ResponseEntity<>(rentService.findById(rentId).get(),HttpStatus.OK);
+    }
 
     @PostMapping()
     public ResponseEntity<Rent> rentByApartmentID(@RequestBody Rent rent){

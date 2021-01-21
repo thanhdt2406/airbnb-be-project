@@ -27,6 +27,6 @@ public class Rating {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private Apartment apartment;
+    @OneToOne
+    private Rent rent;
 }
