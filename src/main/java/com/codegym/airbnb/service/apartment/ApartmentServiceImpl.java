@@ -223,6 +223,7 @@ public class ApartmentServiceImpl implements IApartmentService {
     private ArrayList<Apartment> filterByCheckInAndCheckOut(ArrayList<Apartment> apartments, Date checkIn, Date checkOut) {
         ArrayList<Apartment> arrayList = new ArrayList<>();
         ArrayList<Rent> rents = (ArrayList<Rent>) rentRepository.findAll();
+
         for (Apartment apartment : apartments) {
             boolean isAvailable = true;
             for (Rent rent : rents) {
