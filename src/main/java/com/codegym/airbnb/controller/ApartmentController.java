@@ -1,6 +1,7 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Apartment;
+import com.codegym.airbnb.model.SearchCondition;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.apartment.IApartmentService;
 import com.codegym.airbnb.service.user.IUserService;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -102,5 +104,11 @@ public class ApartmentController {
     @GetMapping("/rents")
     public ResponseEntity<Iterable<Apartment>> getAllRentApartment(){
         return new ResponseEntity<>(apartmentService.findAllByApartment_Id(userService.getCurrentUser().getId()),HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<ArrayList<Apartment>> getApartmentByAllCondition(@RequestBody SearchCondition searchCondition){
+        System.out.println(searchCondition);
+        return new ResponseEntity<>(apartmentService.findApartmentByAllCondition(searchCondition), HttpStatus.OK);
     }
 }

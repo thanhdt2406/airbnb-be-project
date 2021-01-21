@@ -20,7 +20,7 @@ public class Rating {
 
     @Min(1)
     @Max(5)
-    private double star;
+    private double stars;
 
     private String content;
 

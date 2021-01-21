@@ -2,8 +2,11 @@ package com.codegym.airbnb.service.apartment;
 
 import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Rent;
+import com.codegym.airbnb.model.SearchCondition;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.IGeneralService;
+
+import java.util.ArrayList;
 
 public interface IApartmentService extends IGeneralService<Apartment> {
     void stopSelling(Long id);
@@ -20,4 +23,6 @@ public interface IApartmentService extends IGeneralService<Apartment> {
     Iterable<Apartment> findAllByUser(User user);
 
     Iterable<Apartment> findAllByApartment_Id(Long id);
+
+    ArrayList<Apartment> findApartmentByAllCondition(SearchCondition searchCondition);
 }

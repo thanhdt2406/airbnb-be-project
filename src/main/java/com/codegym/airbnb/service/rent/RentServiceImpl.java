@@ -2,6 +2,7 @@ package com.codegym.airbnb.service.rent;
 
 import com.codegym.airbnb.model.Apartment;
 import com.codegym.airbnb.model.Rent;
+import com.codegym.airbnb.model.TotalIncome;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.repository.IRentRepository;
 import com.codegym.airbnb.service.apartment.ApartmentServiceImpl;
@@ -68,6 +69,16 @@ public class RentServiceImpl implements IRentService {
     @Override
     public Iterable<Rent> getAllRented(Long userId) {
         return rentRepo.getAllRented(userId);
+    }
+
+    @Override
+    public Long getTotalIncomeByUserId(Long id,int year, int month) {
+        return rentRepo.getTotalIncomeByUserId(id,year, month);
+    }
+
+    @Override
+    public Iterable<Rent> getAllRentedByApartment(Long apartment_id) {
+        return rentRepo.getAllRentedByApartment(apartment_id);
     }
 
 }
