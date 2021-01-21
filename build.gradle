@@ -34,6 +34,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/fluent-hc
     compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.13'
 
+    runtimeOnly 'org.postgresql:postgresql'
+
 }
 
 test {
