@@ -72,8 +72,13 @@ public class RentServiceImpl implements IRentService {
     }
 
     @Override
-    public Iterable<TotalIncome> getTotalIncomeByUserId(Long id) {
-        return rentRepo.getTotalIncomeByUserId(id);
+    public Long getTotalIncomeByUserId(Long id,int year, int month) {
+        return rentRepo.getTotalIncomeByUserId(id,year, month);
+    }
+
+    @Override
+    public Iterable<Rent> getAllRentedByApartment(Long apartment_id) {
+        return rentRepo.getAllRentedByApartment(apartment_id);
     }
 
 }
