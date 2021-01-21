@@ -37,4 +37,9 @@ public class ImageServiceImpl implements IImageService {
     public Iterable<Image> getAllByApartment(Apartment apartment) {
         return iImageRepository.getAllByApartment(apartment);
     }
+
+    @Override
+    public Image findAvatar(Long apartId) {
+        return iImageRepository.findFirstByApartment_Id(apartId);
+    }
 }
