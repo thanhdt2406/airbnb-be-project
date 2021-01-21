@@ -17,6 +17,7 @@ public interface IApartmentService extends IGeneralService<Apartment> {
 
     void rentingApartment(Long id);
 
+    void setAvtURL(String avatar,Long id);
 
     Iterable<Apartment> findSevenApartment();
 

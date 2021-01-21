@@ -1,6 +1,7 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Apartment;
+import com.codegym.airbnb.model.Image;
 import com.codegym.airbnb.model.SearchCondition;
 import com.codegym.airbnb.model.User;
 import com.codegym.airbnb.service.apartment.IApartmentService;
@@ -35,8 +36,11 @@ public class ApartmentController {
 
     @PostMapping
     public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {
+
         return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.CREATED);
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Apartment> getApartmentById(@PathVariable Long id) {
@@ -52,6 +56,15 @@ public class ApartmentController {
             apartment.setId(apartment1.getId());
             return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/avatar/{id}")
+    public void setAvatar(@PathVariable Long id, @RequestBody String avatar) {
+        System.out.println("///////////////////////////////////////");
+        System.out.println("URL: "+avatar);
+        System.out.println("ID: "+id);
+        System.out.println(id+2);
+        apartmentService.setAvtURL(avatar,id);
     }
 
     /*@PutMapping("/edit")

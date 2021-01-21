@@ -28,6 +28,8 @@ public class Apartment {
 
     private int bathroom;
 
+    private String avatar;
+
     @Column(columnDefinition = "longtext")
     private String description;
 

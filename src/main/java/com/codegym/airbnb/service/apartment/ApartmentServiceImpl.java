@@ -69,6 +69,11 @@ public class ApartmentServiceImpl implements IApartmentService {
     }
 
     @Override
+    public void setAvtURL(String avatar,Long id) {
+        apartmentRepository.setAvatarURL(avatar,id);
+    }
+
+    @Override
     public Iterable<Apartment> findSevenApartment() {
         return apartmentRepository.findSevenApartment();
     }
