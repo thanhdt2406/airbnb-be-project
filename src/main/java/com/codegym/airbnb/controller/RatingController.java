@@ -7,8 +7,10 @@ import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -34,6 +36,18 @@ public class RatingController {
         }
         return new ResponseEntity<>(ratingService.save(rating), HttpStatus.CREATED);
     }
+
+//    @PostMapping("")
+//    public ResponseEntity<Rating> addRating(@Valid @RequestBody Rating rating, BindingResult bindingResult) {
+//        if(!bindingResult.hasFieldErrors()){
+//            Long rentID = rating.getRent().getId();
+//            if (ratingService.isExist(rentID)){
+//                rating.setId(ratingService.findByRent_Id(rentID).getId());
+//            }
+//            return new ResponseEntity<>(ratingService.save(rating), HttpStatus.CREATED);
+//        }
+//        return null;
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Rating> editRating(@RequestBody Rating rating) {
