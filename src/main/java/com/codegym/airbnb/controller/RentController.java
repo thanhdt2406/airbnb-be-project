@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.Optional;
 
@@ -38,6 +39,18 @@ public class RentController {
         rentService.cancelBooking(id1,id2);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/checkIn")
+    public ResponseEntity<Rent> checkIn(@RequestBody Rent rent){
+        return new ResponseEntity<>(rentService.checkIn(rent),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removeBooking(@PathVariable Long id) {
+        rentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/user/{id}")
     public ResponseEntity<Iterable<Rent>> findAllBookingApartmentByUserId(@PathVariable Long id) {
         Iterable<Rent> rents = rentService.getAllBookingApartmentByUser(id);
