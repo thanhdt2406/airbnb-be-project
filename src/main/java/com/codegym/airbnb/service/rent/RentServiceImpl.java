@@ -81,4 +81,10 @@ public class RentServiceImpl implements IRentService {
         return rentRepo.getAllRentedByApartment(apartment_id);
     }
 
+    @Override
+    public Rent checkIn(Rent rent) {
+        rent.setStatus(1);
+        return rentRepo.save(rent);
+    }
+
 }

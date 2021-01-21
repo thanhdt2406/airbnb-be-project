@@ -30,6 +30,8 @@ public class Rent {
     @ManyToOne
     private Apartment apartment;
 
+    private int status;
+
     public Rent(User user, Apartment apartment, Date startDate, Date endDate){
         this.user = user;
         this.apartment = apartment;

@@ -5,6 +5,7 @@ import com.codegym.airbnb.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @GetMapping
     public ResponseEntity<Iterable<User>> getAllUser() {
@@ -52,7 +56,7 @@ public class UserController {
     }
 
     @PutMapping("/passwords")
-    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<?> changePassword(@Valid @RequestBody User user, BindingResult bindingResult) {
         if (!bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
         }
