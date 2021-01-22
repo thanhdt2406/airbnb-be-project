@@ -7,4 +7,6 @@ public interface IRatingService extends IGeneralService<Rating> {
     Rating findByRent_Id(Long id);
 
     boolean isExist(Long rentID);
+
+    Iterable<Rating> findAllByApartmentId(Long apartId);
 }

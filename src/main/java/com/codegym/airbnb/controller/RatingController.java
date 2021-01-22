@@ -28,6 +28,11 @@ public class RatingController {
         return new ResponseEntity<>(ratingService.findByRent_Id(id), HttpStatus.OK);
     }
 
+    @GetMapping("/apartments/all/{id}")
+    public ResponseEntity<Iterable<Rating>> findByAllApartment_Id(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(ratingService.findAllByApartmentId(id), HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<Rating> addRating(@RequestBody Rating rating) {
         Long rentID = rating.getRent().getId();

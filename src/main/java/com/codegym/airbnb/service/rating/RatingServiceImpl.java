@@ -42,4 +42,9 @@ public class RatingServiceImpl implements IRatingService {
     public boolean isExist(Long rentID) {
         return ratingRepository.existsRatingByRent_Id(rentID);
     }
+
+    @Override
+    public Iterable<Rating> findAllByApartmentId(Long apartId) {
+        return ratingRepository.findAllByRent_Apartment_Id(apartId);
+    }
 }
